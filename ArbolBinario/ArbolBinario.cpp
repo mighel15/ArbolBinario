@@ -39,7 +39,6 @@ public:
     {
         this->hijoDerecho = enlace;
     }
-
     void imprimir()
     {
         cout << "/-------------------\\" << endl;
@@ -55,6 +54,11 @@ public:
     ArbolBinario() {
         raiz = NULL;
     }
+    Nodo* getRaiz()
+    {
+        return raiz;
+    }
+
     bool EstaVacia()
     {
         if (raiz == NULL)
@@ -62,14 +66,101 @@ public:
         else
             return false;
     }
+    void Insertar(Nodo* inicial, int dato) {
+        Nodo* temp = new Nodo(dato);
+        if (EstaVacia())
+        {
+            inicial = temp;
+        }
+        else
+        {
+            if (dato < inicial->getDato())
+            {
+                //insertar izquierda
+                if (inicial->getHijoIzquierdo() == NULL)
+                    inicial->setHijoIzquierdo(temp);
+                else
+                    Insertar(inicial->getHijoIzquierdo(), dato);
+            }
+            else
+            {
+                //insertar derecha
+                if (inicial->getHijoDerecho() == NULL)
+                    inicial->setHijoDerecho(temp);
+                else
+                    Insertar(inicial->getHijoDerecho(), dato);
+            }
+        }
+    }
     void Insertar(int dato) {
-        //aqui vamos a implementar este codigo
+        Insertar(raiz, dato);
+    }
+    //preorder, inorder, postorder
+    //-> impresión del arbol tal como se creo
+    void PreOrden(Nodo* inicial) {
+        //condición de finalización
+        if (inicial == NULL) {
+            return;
+        }
+        else {
+            cout << inicial->getDato() << endl;
+            PreOrden(inicial->getHijoIzquierdo());
+            PreOrden(inicial->getHijoDerecho());
+        }
+    }
+    void InOrden(Nodo* inicial) {
+        //condición de finalización
+        if (inicial == NULL) {
+            return;
+        }
+        else {
+            InOrden(inicial->getHijoIzquierdo());
+            cout << inicial->getDato() << endl;//raiz
+            InOrden(inicial->getHijoDerecho());
+        }
+    }
+
+    void PostOrden(Nodo* inicial) {
+        //condición de finalización
+        if (inicial == NULL) {
+            return;
+        }
+        else {
+            PostOrden(inicial->getHijoIzquierdo());
+            PostOrden(inicial->getHijoDerecho());
+            cout << inicial->getDato() << endl;//raiz
+        }
+    }
+    void PreOrden() {
+        PreOrden(raiz);
+    }
+    void InOrden() {
+        InOrden(raiz);
+    }
+    void PostOrden() {
+        PostOrden(raiz);
     }
 
 };
 
 int main()
 {
+    ArbolBinario arbol = ArbolBinario();
+    arbol.Insertar(7);
+    arbol.Insertar(9);
+    arbol.Insertar(1);
+    arbol.Insertar(15);
+    arbol.Insertar(10);
+    arbol.Insertar(6);
+    arbol.Insertar(5);
+    arbol.Insertar(0);
+    arbol.Insertar(7);
+
+    //cout<<arbol.getRaiz()->getDato()<<endl;
+
+    arbol.PreOrden();
+    arbol.InOrden();
+    arbol.PostOrden();
 
     /*Nodo nodo = Nodo(5);
     nodo.imprimir();
@@ -78,15 +169,6 @@ int main()
     nodo.setHijoDerecho(nodo2);
     nodo.imprimir();*/
     //ArbolBinario arbol = ArbolBinario();
-    int valorNodo = 7;
-    int valorInsertar = 7;
-    if (valorNodo < valorInsertar)
-    {
-        cout << "Izquierda";
-    }
-    else
-    {
-        cout << "Derecha";
-    }
+
     return 0;
 }
