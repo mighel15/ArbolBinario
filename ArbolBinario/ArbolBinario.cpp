@@ -2,7 +2,7 @@
 
 using namespace std;
 
-class Nodo {
+class Nodo{
     int dato;
     Nodo* hijoDerecho;
     Nodo* hijoIzquierdo;
@@ -14,7 +14,7 @@ public:
         hijoDerecho = NULL;//por que no apuntamos a ningun nodo
         hijoIzquierdo = NULL;//por que no apuntamos a ningun nodo
     }
-    //getter and setter
+     //getter and setter
     int getDato()
     {
         return dato;
@@ -48,10 +48,10 @@ public:
         cout << "\\------------------/" << endl;
     }
 };
-class ArbolBinario {
+class ArbolBinario{
     Nodo* raiz;
 public:
-    ArbolBinario() {
+    ArbolBinario(){
         raiz = NULL;
     }
     Nodo* getRaiz()
@@ -66,18 +66,18 @@ public:
         else
             return false;
     }
-    void Insertar(Nodo* inicial, int dato) {
+    void Insertar(Nodo* inicial, int dato){
         Nodo* temp = new Nodo(dato);
-        if (EstaVacia())
+        if(EstaVacia())
         {
-            inicial = temp;
+            raiz = temp;
         }
         else
         {
-            if (dato < inicial->getDato())
+            if(dato < inicial->getDato())
             {
                 //insertar izquierda
-                if (inicial->getHijoIzquierdo() == NULL)
+                if(inicial->getHijoIzquierdo()==NULL)
                     inicial->setHijoIzquierdo(temp);
                 else
                     Insertar(inicial->getHijoIzquierdo(), dato);
@@ -85,59 +85,59 @@ public:
             else
             {
                 //insertar derecha
-                if (inicial->getHijoDerecho() == NULL)
+                if(inicial->getHijoDerecho()==NULL)
                     inicial->setHijoDerecho(temp);
                 else
                     Insertar(inicial->getHijoDerecho(), dato);
             }
         }
     }
-    void Insertar(int dato) {
+    void Insertar(int dato){
         Insertar(raiz, dato);
     }
     //preorder, inorder, postorder
     //-> impresión del arbol tal como se creo
-    void PreOrden(Nodo* inicial) {
+    void PreOrden(Nodo* inicial){
         //condición de finalización
-        if (inicial == NULL) {
+        if(inicial==NULL){
             return;
         }
-        else {
-            cout << inicial->getDato() << endl;
+        else{
+            cout<<inicial->getDato()<<endl;
             PreOrden(inicial->getHijoIzquierdo());
             PreOrden(inicial->getHijoDerecho());
         }
     }
-    void InOrden(Nodo* inicial) {
+    void InOrden(Nodo* inicial){
         //condición de finalización
-        if (inicial == NULL) {
+        if(inicial==NULL){
             return;
         }
-        else {
+        else{
             InOrden(inicial->getHijoIzquierdo());
-            cout << inicial->getDato() << endl;//raiz
+            cout<<inicial->getDato()<<endl;//raiz
             InOrden(inicial->getHijoDerecho());
         }
     }
 
-    void PostOrden(Nodo* inicial) {
+    void PostOrden(Nodo* inicial){
         //condición de finalización
-        if (inicial == NULL) {
+        if(inicial==NULL){
             return;
         }
-        else {
+        else{
             PostOrden(inicial->getHijoIzquierdo());
             PostOrden(inicial->getHijoDerecho());
-            cout << inicial->getDato() << endl;//raiz
+            cout<<inicial->getDato()<<endl;//raiz
         }
     }
-    void PreOrden() {
+    void PreOrden(){
         PreOrden(raiz);
     }
-    void InOrden() {
+    void InOrden(){
         InOrden(raiz);
     }
-    void PostOrden() {
+    void PostOrden(){
         PostOrden(raiz);
     }
 
